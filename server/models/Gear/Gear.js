@@ -13,6 +13,7 @@ const GearSchema = new Schema(shape, {
   strictQuery: "throw",
 });
 
+
 GearSchema.query = queries;
 GearSchema.methods = methods;
 GearSchema.statics = statics;
