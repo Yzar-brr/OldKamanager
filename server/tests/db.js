@@ -1,17 +1,19 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from "mongoose";
 
-const mongod = await MongoMemoryServer.create();
+let mongod;
 
-/**
- * Connect to the database
- */
+export async function initialize() {
+  mongod = await MongoMemoryServer.create();
+}
+
 export async function connect() {
   const uri = mongod.getUri();
   const mongooseOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
+  mongoose.set('strictQuery', true); // Ajoutez cette ligne pour supprimer l'avertissement ( peu causé une erreur )
   await mongoose.connect(uri, mongooseOptions);
 }
 
@@ -30,6 +32,7 @@ export async function clearDatabase() {
 }
 
 export default {
+  initialize,
   connect,
   closeDatabase,
   clearDatabase

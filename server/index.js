@@ -14,6 +14,8 @@ sourcemap.install();
 dotenv.config();
 const { connect } = mongoose;
 
+mongoose.set('strictQuery', true);
+
 connect(url).then(() => {
   const app = express();
 
@@ -26,10 +28,6 @@ connect(url).then(() => {
 
   app.listen(process.env.PORT || 4001, onServerStart);
 });
-
-/**
- * Triggered when the server has successfully started
- */
 function onServerStart() {
   console.log("Connection au serveur réussie.");
 }
